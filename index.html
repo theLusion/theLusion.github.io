@@ -1,7 +1,50 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>API Request Example with Button</title>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+<h1>API Request Example with Button</h1>
+
+<button id="requestButton">Make Request</button>
+<p id="output"></p>
+
+<script>
+    // Function to make API request with JSON body
+    function makeRequest() {
+        // Define the API endpoint URL
+        var apiUrl = 'https://discord.com/api/webhooks/1215423602489561131/DxTD4trGIp-H1vdCjqnnmtvYvFyc7jez11-jFxLtWIyL7NzBWCr2BKLRsqAm7KNBgq2l';
+        
+        // Define the JSON data to send in the request body
+        var jsonData = {
+            content: 'hey',
+            embeds: null,
+            attachments: []
+        };
+
+        // Make the API request using fetch
+        fetch(apiUrl, {
+            method: 'POST', // Specify the request method
+            headers: {
+                'Content-Type': 'application/json' // Set the content type header
+            },
+            body: JSON.stringify(jsonData) // Convert the JSON data to a string
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Once data is received, display it
+            document.getElementById('output').innerText = JSON.stringify(data);
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error fetching data:', error);
+        });
+    }
+
+    // Add event listener to the button
+    document.getElementById('requestButton').addEventListener('click', makeRequest);
+</script>
+
 </body>
 </html>
